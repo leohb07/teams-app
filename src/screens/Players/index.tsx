@@ -1,7 +1,6 @@
 import { Header } from "@components/Header";
 import { Container, Form, HeaderList, NumbersOfPlayers } from "./style";
 import { Highlight } from "@components/Highlight";
-import { SafeArea } from "@components/SafeArea";
 import { Input } from "@components/Input";
 import { ButtonIcon } from "@components/ButtonIcon";
 import { Filter } from "@components/Filter";
@@ -16,57 +15,55 @@ export function Players() {
   const [players, setPlayers] = useState([]);
 
   return (
-    <SafeArea>
-      <Container>
-        <Header canShowBackButton />
+    <Container>
+      <Header canShowBackButton />
 
-        <Highlight
-          title="Nome da turma"
-          subtitle="adicione a galera e separe os times"
-        />
+      <Highlight
+        title="Nome da turma"
+        subtitle="adicione a galera e separe os times"
+      />
 
-        <Form>
-          <Input placeholder="Nome da pessoa" autoCorrect={false} />
+      <Form>
+        <Input placeholder="Nome da pessoa" autoCorrect={false} />
 
-          <ButtonIcon iconName="add" />
-        </Form>
+        <ButtonIcon iconName="add" />
+      </Form>
 
-        <HeaderList>
-          <FlatList
-            data={["Time A", "Time B"]}
-            keyExtractor={(item) => item}
-            renderItem={({ item }) => (
-              <Filter
-                title={item}
-                isActive={team === item}
-                onPress={() => setTeam(item)}
-              />
-            )}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          />
-
-          <NumbersOfPlayers>{players.length}</NumbersOfPlayers>
-        </HeaderList>
-
+      <HeaderList>
         <FlatList
-          data={players}
+          data={["Time A", "Time B"]}
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
-            <PlayerCard name={item} onRemove={() => {}} />
+            <Filter
+              title={item}
+              isActive={team === item}
+              onPress={() => setTeam(item)}
+            />
           )}
-          ListEmptyComponent={() => (
-            <ListEmpty message="Não há pessoas nesse time" />
-          )}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[
-            { paddingBottom: 100 },
-            players.length === 0 && { flex: 1 },
-          ]}
+          horizontal
+          showsHorizontalScrollIndicator={false}
         />
 
-        <Button title="Remover turma" type="SECONDARY" />
-      </Container>
-    </SafeArea>
+        <NumbersOfPlayers>{players.length}</NumbersOfPlayers>
+      </HeaderList>
+
+      <FlatList
+        data={players}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
+          <PlayerCard name={item} onRemove={() => {}} />
+        )}
+        ListEmptyComponent={() => (
+          <ListEmpty message="Não há pessoas nesse time" />
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          { paddingBottom: 100 },
+          players.length === 0 && { flex: 1 },
+        ]}
+      />
+
+      <Button title="Remover turma" type="SECONDARY" />
+    </Container>
   );
 }

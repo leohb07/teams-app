@@ -6,31 +6,35 @@ import { useState } from "react";
 import { FlatList } from "react-native";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
-import { SafeArea } from "@components/SafeArea";
+import { useNavigation } from "@react-navigation/native";
 
 export function Groups() {
   const [groups, setGroups] = useState<string[]>([]);
 
+  const navigation = useNavigation();
+
+  const handleNewGroup = () => {
+    navigation.navigate("new");
+  };
+
   return (
-    <SafeArea>
-      <Container>
-        <Header />
+    <Container>
+      <Header />
 
-        <Highlight title="Turmas" subtitle="jogue com sua turma" />
+      <Highlight title="Turmas" subtitle="jogue com sua turma" />
 
-        <FlatList
-          data={groups}
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => <GroupCard title={item} />}
-          contentContainerStyle={!groups.length && { flex: 1 }}
-          ListEmptyComponent={() => (
-            <ListEmpty message="Que tal cadastrar a primeira turma?" />
-          )}
-          showsVerticalScrollIndicator={false}
-        />
+      <FlatList
+        data={groups}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => <GroupCard title={item} />}
+        contentContainerStyle={!groups.length && { flex: 1 }}
+        ListEmptyComponent={() => (
+          <ListEmpty message="Que tal cadastrar a primeira turma?" />
+        )}
+        showsVerticalScrollIndicator={false}
+      />
 
-        <Button title="Criar nova turma" />
-      </Container>
-    </SafeArea>
+      <Button title="Criar nova turma" onPress={handleNewGroup} />
+    </Container>
   );
 }
