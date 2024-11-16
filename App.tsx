@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components/native";
-import { Groups } from "@screens/Groups";
+import { Players } from "@screens/Players";
 import {
   useFonts,
   Roboto_400Regular,
@@ -20,7 +20,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Groups /> : <Loading />}
+      {fontsLoaded ? <Players /> : <Loading />}
     </ThemeProvider>
   );
 }
